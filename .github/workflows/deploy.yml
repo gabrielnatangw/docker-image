@@ -30,7 +30,10 @@ jobs:
             echo 'Deploy on digital ocean'
             echo '--------------------------------'
             pwd
+            ls
             echo '--------------------------------'
             cd docker-image
+            pwd
+            echo '--------------------------------'
             docker build -t docker/image
             docker run -p 80:80 --name docker-build docker/image
