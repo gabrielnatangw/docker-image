@@ -35,5 +35,5 @@ jobs:
             cd docker-image
             pwd
             echo '--------------------------------'
-            docker build -t docker/image
+            docker build -t docker/image .
             docker run -p 80:80 --name docker-build docker/image
