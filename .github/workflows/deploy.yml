@@ -27,4 +27,4 @@ jobs:
             mkdir -p app
             cd app
             git clone git@github.com:gabrielnatangw/docker-image.git
-            echo 'Deploy on digital ocean 2'
+            echo 'Deploy on digital ocean'
