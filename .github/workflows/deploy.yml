@@ -1,4 +1,4 @@
-name: Build and Deploy novamente
+name: Build and Deploy
 
 on: 
   push:
@@ -8,15 +8,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
       - name: Deploy React app
         uses: appleboy/ssh-action@v0.1.2
         with:
-          host: ${{secrets.SSH_HOST}}
-          key: ${{secrets.SSH_KEY}}
-          username: ${{secrets.SSH_USERNAME}}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
 
           script: |
-            mkdir app
-            cd app
+            cd /caminho/para/seu/projeto
             git clone git@github.com:gabrielnatangw/docker-image.git
             echo 'Deploy on digital ocean'
