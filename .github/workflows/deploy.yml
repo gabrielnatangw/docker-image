@@ -33,7 +33,7 @@ jobs:
             ls
             echo '--------------------------------'
             cd docker-image
-            git pull main
+            git pull
             pwd
             echo '--------------------------------'
             docker rm -f docker-build
