@@ -37,5 +37,5 @@ jobs:
             echo '--------------------------------'
             docker rm -f docker-build
             docker rmi -f docker/image
-            docker build -t docker/image .
+            docker build --no-cache -t docker/image .
             docker run -p 80:80 -d --name docker-build docker/image
