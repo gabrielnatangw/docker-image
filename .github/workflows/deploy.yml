@@ -38,4 +38,4 @@ jobs:
             docker rm -f docker-build
             docker rmi -f docker/image
             docker build -t docker/image2 .
-            docker run -p 80:80 -d --name docker-build docker/image2 
+            docker run -p 80:80 --no-cache -d --name docker-build docker/image2 
