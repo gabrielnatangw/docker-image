@@ -1,23 +1,27 @@
-name: image
+name: CI
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+  
+
 
 jobs:
-  publish_image:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.TOKEN }}
-
-      - name: Build and push Docker image
-        run: |
-          docker build . --tag ghcr.io/smart/image-docker:latest
-          docker push ghcr.io/smart/image-docker:latest
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ghcr.io
+        username: ${{ secrets.GH_PACKAGES_USER }}
+        password: ${{ secrets.TOKEN }}
+    
+    - run: |
+        docker build -t ghcr.io/gabrielnatangw/image-docker:latest -f Dockerfile .
+        docker tag ghcr.io/gabrielnatangw/image-docker:latest ghcr.io/gabrielnatangw/image-docker:${{ github.sha }}
+    
+    - run: |
+        docker push ghcr.io/gabrielnatangw/image-docker:latest
+        docker push ghcr.io/gabrielnatangw/image-docker:${{ github.sha }}
